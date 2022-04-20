@@ -1,0 +1,33 @@
+<div class="flex justify-center h-full">
+    <.live_component module={MdlAppsWeb.Live.Components.Navbar} id="navbar" links={@links} />
+    <div class="grow">
+        <.live_component module={MdlAppsWeb.Live.Components.FlashNotifications} id="flash-notifications" flash={@flash} />
+        <div class="w-full h-full flex justify-center items-center">
+            <div class="bg-zinc-700 w-[90%] lg:w-[700px] rounded-lg py-2">
+                <h1 class="text-2xl text-sky-500 text-center"><%= String.capitalize(@current_user.username) %></h1>
+                
+                <%= if is_nil(@current_user.confirmed_at) do %>
+                    <p class="text-center my-2"><%= live_redirect "Confirm account", to: Routes.live_path(@socket, MdlAppsWeb.Live.Auth.ConfirmNew), class: "bg-red-500 text-white py-1 px-2 rounded-lg hover:bg-zinc-600 transition" %></p>
+                <% end %>
+
+                <div class="flex flex-col justify-center items-center">
+                    <div class="w-20 h-20 lg:w-36 lg:h-36 mx-auto">
+                        <.live_component module={MdlAppsWeb.Live.Components.Avatar} id="profile-avatar" seed={@current_user.username} style={@current_user.avatar} />
+                    </div>
+                    <div class="form-group">
+                        <button class="bg-sky-500 text-white py-1 px-2 rounded-lg hover:bg-zinc-600 transition" phx-click={Phoenix.LiveView.JS.toggle(to: "#avatar-options", display: "flex")}>Change avatar</button>
+                    </div>
+                    <div id="avatar-options" class="flex-wrap justify-center gap-2 hidden transition-all duration-500"}>
+                        <%= for style <- Keyword.values(@avatar_options) do %>
+                            <div class={"w-10 h-10 lg:w-14 lg:h-14 #{if style == @current_user.avatar, do: "bg-sky-500", else: "bg-zinc-600 hover:bg-zinc-500"}"} phx-click="select_avatar" phx-value-avatar={style}>
+                                <.live_component module={MdlAppsWeb.Live.Components.Avatar} id={style} seed={@current_user.username} style={style} />
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+
+                <.live_component module={MdlAppsWeb.Live.Account.Components.ChangePassword} id="change-password" password_changeset={@password_changeset} />
+            </div>
+        </div>
+    </div>
+</div>

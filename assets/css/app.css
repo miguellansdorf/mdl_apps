@@ -1,0 +1,17 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* LiveView specific classes for your customization */
+.phx-no-feedback.invalid-feedback,
+.phx-no-feedback .invalid-feedback {
+  display: none;
+}
+
+.invalid-feedback {
+  @apply text-red-600;
+}
+
+.form-group {
+  @apply flex w-full px-4 py-1 justify-center items-center gap-2;
+}

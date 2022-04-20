@@ -1,0 +1,42 @@
+<div class="flex justify-center h-full">
+    <.live_component module={MdlAppsWeb.Live.Components.Navbar} id="navbar" links={@links} />
+    <div class="grow">
+        <.live_component module={MdlAppsWeb.Live.Components.FlashNotifications} id="flash-notifications" flash={@flash} />
+        <div class="w-full h-full flex justify-center items-center">
+            <div class="bg-zinc-700 w-[90%] lg:w-[700px] rounded-lg py-2">
+                <h1 class="text-2xl text-sky-500 text-center">Account Registration</h1>
+
+                <.form let={f} for={@changeset} class="flex flex-col justify-center items-center" phx-change="validate" phx-submit="save">
+                    <div class="form-group">
+                        <FontAwesome.LiveView.icon name="user" type="solid" class="w-8 h-8 shrink-0 fill-sky-500" />
+                        <%= text_input f, :username, placeholder: "Username", class: "grow", phx_debounce: "blur", required: true %>
+                    </div>
+                    <%= error_tag f, :username %>
+
+                    <div class="form-group">
+                        <FontAwesome.LiveView.icon name="envelope" type="solid" class="w-8 h-8 shrink-0 fill-sky-500" />
+                        <%= email_input f, :email, placeholder: "Email", class: "grow", phx_debounce: "blur", required: true %>
+                    </div>
+                    <%= error_tag f, :email %>
+
+                    <div class="form-group">
+                        <FontAwesome.LiveView.icon name="key" type="solid" class="w-8 h-8 shrink-0 fill-sky-500" />
+                        <%= password_input f, :password, placeholder: "Password", class: "grow", phx_debounce: "500", value: input_value(f, :password), required: true %>
+                    </div>
+                    <%= error_tag f, :password %>
+
+                    <div class="form-group">
+                        <FontAwesome.LiveView.icon name="key" type="solid" class="w-8 h-8 shrink-0 fill-sky-500" />
+                        <%= password_input f, :password_confirmation, placeholder: "Repeat Password", class: "grow", phx_debounce: "500", value: input_value(f, :password_confirmation), required: true %>
+                    </div>
+                    <%= error_tag f, :password_confirmation %>
+
+                    <%= submit "Register", class: "bg-sky-500 text-white py-1 px-2 rounded-lg hover:bg-zinc-600 transition" %>
+                </.form>
+
+                <p class="text-white text-center">Already have an account? <%= live_redirect "Login", to: Routes.live_path(@socket, MdlAppsWeb.Live.Auth.Login), class: "text-sky-500" %> </p>
+                <p class="text-center"><%= live_redirect "Confirm account", to: Routes.live_path(@socket, MdlAppsWeb.Live.Auth.ConfirmNew), class: "text-sky-500" %></p>
+            </div>
+        </div>
+    </div>
+</div>

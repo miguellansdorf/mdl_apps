@@ -1,0 +1,20 @@
+<div class="flex justify-center h-full">
+    <.live_component module={MdlAppsWeb.Live.Components.Navbar} id="navbar" links={@links} />
+    <div class="grow">
+        <.live_component module={MdlAppsWeb.Live.Components.FlashNotifications} id="flash-notifications" flash={@flash} />
+        <div class="w-full h-full flex justify-center items-center">
+            <div class="bg-zinc-700 w-[90%] lg:w-[700px] rounded-lg py-2">
+                <h1 class="text-2xl text-sky-500 text-center">Account Confirmation</h1>
+
+                <.form let={f} for={:user} class="flex flex-col justify-center items-center" phx-submit="resend">
+                    <div class="form-group">
+                        <FontAwesome.LiveView.icon name="envelope" type="solid" class="w-8 h-8 shrink-0 fill-sky-500" />
+                        <%= email_input f, :email, placeholder: "Email", class: "grow", required: true %>
+                    </div>
+                    
+                    <%= submit "Resend instructions", class: "bg-sky-500 text-white py-1 px-2 rounded-lg hover:bg-zinc-600 transition" %>
+                </.form>
+            </div>
+        </div>
+    </div>
+</div>

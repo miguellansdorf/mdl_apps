@@ -1,0 +1,6 @@
+<main class="w-screen h-screen bg-zinc-800 overflow-hidden">
+  <%= if @current_user do %>
+    <.live_component module={MdlAppsWeb.Live.Components.UserInfo} id="user-info" user={@current_user} />
+  <% end %>
+  <%= @inner_content %>
+</main>
